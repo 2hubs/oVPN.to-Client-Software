@@ -3554,7 +3554,11 @@ class Systray:
 		self.VAR['MAIN']['HIDE'] = False
 
 	def cb_destroy_debugwindow(self,event):
+		self.debug(1,"def cb_destroy_debugwindow")
 		self.DEBUGWINDOW_OPEN = False
+		# Switch debug modus off when debug window was closed with mouse click or ESC
+		self.switch_debugmode.set_active(False)  # while settings window is present
+		self.DEBUG = False                       # when settings window is destroyed already
 		GLib.idle_add(self.debug_window.destroy)
 
 	def cb_destroy_hidecellswindow(self,event):
