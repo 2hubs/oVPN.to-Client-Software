@@ -1,6 +1,22 @@
 # changelog.txt
 #
 
+Version: 0.8.3
++ update: openVPN 2.3.13
++ update: DNS menu sorting by countrycode, name
++ update: client auto-start, retry 3x with 1min pause
++ bugfix: stop check inet if stopping ovpn
+
+Version: 0.8.2
++ bugfix: serverwindow menu
+
+Version: 0.8.1
++ update: d0wn DNS
++ bugfix: Windows 8/10 notification icon
++ bugfix: client with dnscrypt spammed message: DNS changed but reset ok
++ bugfix: disconnect warning message with self.GATEWAY_LOCAL errors
++ bugfix: server window MB/GB/TB traffic sorting
+
 Version: 0.8.0
 + update: set domains dns while testing inet
 + bugfix: remove version from exe description or notify system fails

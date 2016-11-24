@@ -13,45 +13,45 @@ cpu = 'x86'
 inno = 'win32'
 crt = 'Microsoft.VC100.CRT_win32'
 if BITS == 64:
-	cpu = 'amd64'
-	inno = 'win64'
-	crt = 'Microsoft.VC100.CRT_win64'
+    cpu = 'amd64'
+    inno = 'win64'
+    crt = 'Microsoft.VC100.CRT_win64'
 
 manifest = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" manifestVersion="1.0">
-	<assemblyIdentity
-		version="{APPVERSION}"
-		processorArchitecture="{CPU}"
-		name="oVPN.to Client"
-		type="win32"
-	/>
-	<description>oVPN.to Client</description>
-	<asmv3:trustInfo xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
-		<asmv3:security>
-			<asmv3:requestedPrivileges>
-				<asmv3:requestedExecutionLevel
-				level="requireAdministrator"
-				uiAccess="false" />
-			</asmv3:requestedPrivileges>
-		</asmv3:security>
-	</asmv3:trustInfo>
-	<asmv3:application>
-		<asmv3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">'
-			<dpiAware>true/PM</dpiAware>
-		</asmv3:windowsSettings>
-	</asmv3:application>
-	<dependency>
-		<dependentAssembly>
-			<assemblyIdentity
-				type="win32"
-				name="Microsoft.Windows.Common-Controls"
-				version="6.0.0.0"
-				processorArchitecture="{CPU}"
-				publicKeyToken="6595b64144ccf1df"
-				language="*"
-			/>
-		</dependentAssembly>
-	</dependency>
+    <assemblyIdentity
+        version="{APPVERSION}"
+        processorArchitecture="{CPU}"
+        name="oVPN.to Client"
+        type="win32"
+    />
+    <description>oVPN.to Client</description>
+    <asmv3:trustInfo xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
+        <asmv3:security>
+            <asmv3:requestedPrivileges>
+                <asmv3:requestedExecutionLevel
+                level="requireAdministrator"
+                uiAccess="false" />
+            </asmv3:requestedPrivileges>
+        </asmv3:security>
+    </asmv3:trustInfo>
+    <asmv3:application>
+        <asmv3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">'
+            <dpiAware>true/PM</dpiAware>
+        </asmv3:windowsSettings>
+    </asmv3:application>
+    <dependency>
+        <dependentAssembly>
+            <assemblyIdentity
+                type="win32"
+                name="Microsoft.Windows.Common-Controls"
+                version="6.0.0.0"
+                processorArchitecture="{CPU}"
+                publicKeyToken="6595b64144ccf1df"
+                language="*"
+            />
+        </dependentAssembly>
+    </dependency>
 </assembly>
 '''.format(APPVERSION=appversion, CPU=cpu)
 
@@ -70,46 +70,46 @@ tmpdir = SOURCEDIR+"\\tmp"
 tmpdlldir = tmpdir+"\\dll"
 
 if not os.path.exists(tmpdlldir):
-	os.makedirs(tmpdlldir)
+    os.makedirs(tmpdlldir)
 
 for dll in os.listdir(include_dll_path):
-	if dll.lower().endswith('.dll'):
-		gtk_dlls.append(os.path.join(include_dll_path, dll))
-		tmp_dlls.append(os.path.join(tmpdlldir, dll))
+    if dll.lower().endswith('.dll'):
+        gtk_dlls.append(os.path.join(include_dll_path, dll))
+        tmp_dlls.append(os.path.join(tmpdlldir, dll))
 
 for dll in gtk_dlls:
-	shutil.copy(dll, tmpdlldir)
+    shutil.copy(dll, tmpdlldir)
 
 setup_dict = dict(
-	data_files = [('',['includes/'+crt+'/msvcp100.dll','includes/'+crt+'/msvcr100.dll']),],
-	zipfile = 'ovpn_client.lib',
-	windows=[
-		{
-			"version":release_version.setup_data()["version"],
-			"product_name":release_version.setup_data()["name"],
-			"description":release_version.setup_data()["description"],
-			"script":release_version.setup_data()["script"],
-			"icon_resources" : [(1, 'else\\app_icons\\shield_exe.ico')],
-			"copyright" : "Copyright %s" % (release_version.setup_data()["copyright"]),
-			"company_name" : "%s %s" % (release_version.org_data()["ORG"],release_version.org_data()["ADD"]),
-			"other_resources" : [(24,1,manifest)],
-		}
-	],
-	options={
-		'build': {'build_base': BUILD_DIR },
-		'py2exe': {
-		'dist_dir': DIST_DIR,
-		'bundle_files' : 3,
-		'optimize'     : 2,
-		'skip_archive' : False,
-		'compressed'   : False,
-		'unbuffered'   : False,
-		'includes'     : release_version.setup_data()["py2exe_includes"],
-		'excludes'     : release_version.setup_data()["py2exe_excludes"],
-		'packages'     : [ 'gi' ],
-		'dll_excludes' : release_version.setup_data()["dll_excludes"],
-		}
-	}
+    data_files = [('',['includes/'+crt+'/msvcp100.dll','includes/'+crt+'/msvcr100.dll']),],
+    zipfile = 'ovpn_client.lib',
+    windows=[
+        {
+            "version":release_version.setup_data()["version"],
+            "product_name":release_version.setup_data()["name"],
+            "description":release_version.setup_data()["description"],
+            "script":release_version.setup_data()["script"],
+            "icon_resources" : [(1, 'else\\app_icons\\shield_exe.ico')],
+            "copyright" : "Copyright %s" % (release_version.setup_data()["copyright"]),
+            "company_name" : "%s %s" % (release_version.org_data()["ORG"],release_version.org_data()["ADD"]),
+            "other_resources" : [(24,1,manifest)],
+        }
+    ],
+    options={
+        'build': {'build_base': BUILD_DIR },
+        'py2exe': {
+        'dist_dir': DIST_DIR,
+        'bundle_files' : 3,
+        'optimize'     : 2,
+        'skip_archive' : False,
+        'compressed'   : False,
+        'unbuffered'   : False,
+        'includes'     : release_version.setup_data()["py2exe_includes"],
+        'excludes'     : release_version.setup_data()["py2exe_excludes"],
+        'packages'     : [ 'gi' ],
+        'dll_excludes' : release_version.setup_data()["dll_excludes"],
+        }
+    }
 )
 
 lines = list()
@@ -128,14 +128,14 @@ lines.append('AppUpdatesURL=%s' % release_version.org_data()["UPDATES"])
 lines.append('AppCopyright=Copyright %s'  % release_version.setup_data()["copyright"])
 lines.append('OutputBaseFilename=ovpn_client_v{#Version}-gtk3_%s_setup' % inno)
 if release_version.version_data()["SIGN"] == True:
-	lines.append('SignTool=signtool1')
-	#lines.append('SignTool=signtool2')
-	#lines.append('SignTool=signtool3')
-	lines.append('SignTool=signtool4')
+    lines.append('SignTool=signtool1')
+    #lines.append('SignTool=signtool2')
+    #lines.append('SignTool=signtool3')
+    lines.append('SignTool=signtool4')
 if inno == "win32":
-	lines.append('DefaultDirName={pf}\{#AppDir}')
+    lines.append('DefaultDirName={pf}\{#AppDir}')
 else:
-	lines.append('DefaultDirName={pf64}\{#AppDir}')
+    lines.append('DefaultDirName={pf64}\{#AppDir}')
 lines.append('SignedUninstaller=yes')
 lines.append('Compression=lzma2/max')
 lines.append('SolidCompression=yes')
@@ -244,22 +244,22 @@ lines.append('Root: HKCU; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\
 innoscript = "%s\\inno_setup.iss" % (SOURCEDIR)
 ind = open(innoscript, "wt")
 for line in lines:
-	ind.write("%s\n"%(line))
+    ind.write("%s\n"%(line))
 ind.close()
 if not os.path.exists(innoscript):
-	print(".inno file not created")
-	sys.exit()
+    print(".inno file not created")
+    sys.exit()
 
 
 #setup(**setup_dict)
 setup(**setup_dict)
 
 if not os.path.exists(DIST_DIR):
-	os.makedirs(DIST_DIR)
+    os.makedirs(DIST_DIR)
 
 for dll in tmp_dlls:
-	shutil.copy(dll, DIST_DIR)
-	os.remove(dll)
+    shutil.copy(dll, DIST_DIR)
+    os.remove(dll)
 
 for d in gtk_dirs_to_include:
-	shutil.copytree(os.path.join(site_dir, 'gnome', d), os.path.join(DIST_DIR, d))
+    shutil.copytree(os.path.join(site_dir, 'gnome', d), os.path.join(DIST_DIR, d))
